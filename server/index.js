@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const port = 3000;
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const { Auth } = require("./middleware/Auth");
@@ -29,6 +28,11 @@ mongoose
 // Homepage router
 app.get("/", (req, res) => {
   res.send("The start of the boiler-project!");
+});
+
+// check if axios works
+app.get("/api/hello", (req, res) => {
+  res.send("안녕하세요~");
 });
 
 // Register router
@@ -97,8 +101,9 @@ app.get("/api/users/logout", Auth, (req, res) => {
   });
 });
 
+const port = 5000;
 app.listen(port, () => {
-  console.log("Connected to port 3000.");
+  console.log(`Connected to port ${port}.`);
 });
 
 // User is a model
