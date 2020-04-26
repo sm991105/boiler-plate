@@ -6,6 +6,7 @@ const { Auth } = require("./middleware/Auth");
 const { User } = require("./models/User");
 const mongoose = require("mongoose");
 const config = require("./config/key");
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -41,7 +42,7 @@ app.post("/api/users/register", (req, res) => {
   // Mongoose 'save' method
   user.save((err) => {
     if (err) {
-      res.json({ success: false, error });
+      res.json({ success: false, err });
     }
     res.json({ success: true }).status(200);
   });
@@ -79,7 +80,7 @@ app.post("/api/users/login", (req, res) => {
 app.get("/api/users/auth", Auth, (req, res) => {
   // auth 라는 미들웨어를 통해 진행 before executing callback function
   // 여기까지 통과했다면 Auth ok 라는 말
-  // 그러면 어떤 페이지에서든지 유저 정보를 req.user.doc 으로 조회/이용할 수 있다.
+  // 그러면 어떤 페이지에서든지 유저정보를 req.user.doc 으로 조회/이용할 수 있다.
   res
     .status(200)
     .json({
